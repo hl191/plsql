@@ -1,1 +1,3 @@
-# plsql
+# Learning some PLSQL with SQLPlus
+
+'#hereWeGo
