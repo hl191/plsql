@@ -11,11 +11,11 @@ EXECUTE greetings;
 DROP PROCEDURE greetings;
 
 DECLARE
-    a number;
-    b number;
-    c number;
+    a NUMBER;
+    b NUMBER;
+    c NUMBER;
 
-    PROCEDURE findMin(x IN number, y IN number, z OUT number) IS
+    PROCEDURE findMin(x IN NUMBER, y IN NUMBER, z OUT NUMBER) IS
     BEGIN
         IF x < y THEN
             z := x;

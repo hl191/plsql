@@ -6,9 +6,9 @@ DECLARE
     string  VARCHAR2(5);
 
     -- userdefined subtypes
-    SUBTYPE shortmsg IS char(20);
+    SUBTYPE SHORTMSG IS CHAR(20);
     -- declare variable msg as shortmsg typed
-    msg     shortmsg;
+    msg     SHORTMSG;
 BEGIN
     msg := 'This is a msg which will be too long';
 EXCEPTION

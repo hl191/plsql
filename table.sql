@@ -1,19 +1,35 @@
 CREATE TABLE Persons
 (
-    PersonID  int,
-    LastName  varchar(255),
-    FirstName varchar(255),
-    Address   varchar(255),
-    City      varchar(255)
+    PersonId  INT,
+    LastName  VARCHAR(255),
+    FirstName VARCHAR(255),
+    Address   VARCHAR(255),
+    City      VARCHAR(255)
 );
 
 INSERT INTO Persons
 VALUES (1, 'Junior', 'Me', 'Best address', 'MyCity');
 COMMIT;
 
-select *
-from Persons;
+SELECT *
+FROM Persons;
 
+CREATE VIEW ShortPersons AS
+SELECT LastName, FirstName
+FROM Persons;
+
+SELECT *
+FROM ShortPersons;
+
+CREATE UNIQUE INDEX UniquePersonIdIndex ON Persons (PersonId);
+CREATE INDEX NameIndex ON Persons (LastName, FirstName);
+
+DROP INDEX UniquePersonIdIndex;
+
+ALTER TABLE Persons
+    ADD PRIMARY KEY (PersonId);
+
+DROP VIEW ShortPersons;
 DROP TABLE Persons;
 
 BEGIN
