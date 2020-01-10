@@ -1,3 +1,15 @@
+BEGIN
+	EXECUTE IMMEDIATE 'DROP VIEW ShortPersons';
+	EXECUTE IMMEDIATE 'DROP TABLE Persons';
+	EXECUTE IMMEDIATE 'DROP TABLE PostalCodes';
+EXCEPTION
+	WHEN OTHERS THEN
+		IF SQLCODE != -942 THEN
+			RAISE;
+		END IF;
+END;
+COMMIT;
+
 CREATE TABLE Persons
 (
 	PersonId  INT,
@@ -23,12 +35,21 @@ INSERT INTO Persons
 INSERT INTO Persons
 	VALUES (4, 'Young', 'You', '2nd Best address', 39100);
 
+CREATE TRIGGER NewPostalCode
+	AFTER INSERT
+	ON PostalCodes
+	FOR EACH ROW
+BEGIN
+	dbms_output.put_line('Created new Postalcode entry, ZipCode: ' || :NEW.ZipCode || ', City: ' || :NEW.City);
+END;
+
 
 INSERT INTO PostalCodes
 	VALUES (3013, 'Bern');
 INSERT INTO PostalCodes
 	VALUES (39100, 'Bozen');
 
+DROP TRIGGER NewPostalCode;
 COMMIT;
 
 SELECT *
@@ -51,10 +72,6 @@ ALTER TABLE Persons
 
 ALTER TABLE Persons
 	ADD FOREIGN KEY (ZipCode) REFERENCES PostalCodes (ZipCode);
-
-DROP VIEW ShortPersons;
-DROP TABLE Persons;
-DROP TABLE PostalCodes;
 
 BEGIN
 	dbms_output.put_line('Created, inserted and dropped table Persons');
